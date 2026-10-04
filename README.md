@@ -1,28 +1,41 @@
 # `Task. React Testing Library`
 
-We have an application with next - 3 tabs.<br/> 
-On activation any of them only corresponding component is displayed.
+The application has 3 tabs.<br/>
+Selecting a tab shows only the component that belongs to that tab.
 
 <img src="./public/images/app-demo.gif" width=200px>
 
 ## `Please, test the components of the application`
 
+Write the tests in `src/tests`. On push, GitHub Actions checks them in two steps:
+
+1. With the original components, every test must pass.
+2. The grader replaces `src/components` with broken components and runs your tests again. `App.test.js` and `Calculations.test.js` must each have at least 2 failed tests. `ButtonGroup.test.js` must have at least 1 failed test.
+
+Put each broken behavior in its own `test`. Extra failing tests are accepted.
+
 ### `1. App component`
-Write tests for App component in 'App.test.js'<br/>
-The test should check 
- - if image is displayed when the first tab is selected
- - if Calculation component is displayed when the second is selected
- - if ButtonGroup component is displayed when the third tab is selected<br/>
- Also, test should check if components are not displayed if they do not correspond to the currenc active tab.
+Write the tests in `src/tests/App.test.js`.<br/>
+Check that:
+ - the image is displayed when the Picture tab is selected
+ - the Calculations component is displayed when the Calculations tab is selected
+ - the ButtonGroup component is displayed when the Group tab is selected
+ - a component is hidden when its tab is not active
+
+The broken App contains 2 mistakes, so this file needs at least 2 failing tests on that version.
 
 ### `2. Calculations component`
 <img src="./public/images/calculations.gif" width=200px><br>
-Write tests for Calculations component in 'Calculations.test.js'<br/>
-The test should check if evaluation of the result is correct
+Write the tests in `src/tests/Calculations.test.js`.<br/>
+Check that Evaluate produces the correct result for both addition and subtraction.
+
+The broken Calculations component contains 2 mistakes, so this file needs at least 2 failing tests on that version. Use non-zero numbers: `0 + 0` and `0 * 0` both equal `0`, so a test with the default values does not catch a wrong addition.
 
 ### `3. ButtonGroup component`
 <img src="./public/images/alignment.gif" width=200px><br>
-Write tests for ButtonGroup component in 'ButtonGroup.test.js'<br/>
-The test should check if text alignment in the paragraph is correct, corresponding to selected option.
+Write the tests in `src/tests/ButtonGroup.test.js`.<br/>
+Check that the paragraph `align` attribute matches the selected option: left, center, or right.
 
-*Note: there are components in the folder __brokenComponents__.<br/> These components are similar to the original ones, but they are with mistakes.<br/> These mistakes are described in component files.<br> You can use these broken components to check if your tests will find the mistakes. To do this, just replace the original components with the broken ones and run your tests.*
+The broken ButtonGroup contains 1 mistake, so at least one test in this file must fail on that version.
+
+*The `brokenComponents` folder contains the same broken components, with the mistakes described in the files. To try the check locally, replace the files in `src/components` with these copies and run the tests again. The grader does this replacement on push; you do not need to commit the broken files.*
